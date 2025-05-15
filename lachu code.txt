@@ -1,0 +1,793 @@
+from IPython.display import HTML, display
+
+html_code = '''
+<h1 style = "background-color: #556B2F;
+ font-size: 30px;
+border-radius: 20px;
+padding: 16px;
+text-align: center;">
+
+<b style = "color: #9ACD32;
+">Kaggle - Healthcare Dataset Analysis</b></h1>
+'''
+
+display(HTML(html_code))
+from IPython.display import HTML, display
+
+html_code = '''
+<h1 style = "background-color: #556B2F; font-size: 14px;
+border-radius: 20px;
+padding: 12px;
+border: 4px solid darkgreen
+text-align: left;">
+
+<span style = "color:#9ACD32;
+">- The The steps we'll follow are:<br><br>
+We will:
+<br><br></span> 
+<span style = "color:white;
+">🧭 Step 1: Load and Inspect the Data
+<br><br></span>
+<span style = "color:#9ACD32;
+"><ul>Check the structure</ul>
+  <ul>Review column names</ul>
+  <ul>Look at data types</ul>
+  <ul>Identify nulls or anomalies</ul></span>
+<br><br>
+
+<span style = "color:white;
+">🧪 Step 2: Data Cleaning
+</span>
+<br><br>
+<span style = "color:#9ACD32;
+">- Tasks:
+<br><br></span>
+<span style = "color:#9ACD32;
+"><ul>Convert data types where necessary</ul>
+  <ul>Handle missing values appropriately</ul>
+  <ul>Clean or encode categorical variables if needed</ul></span>
+<br><br>
+
+<span style = "color:white;
+">📊 Step 3: Exploratory Data Analysis (EDA)
+</span>
+<br><br>
+<span style = "color:#9ACD32;
+">- We'll visualize and analyze:
+<br><br></span>
+<span style = "color:#9ACD32;
+"><ul>Distributions of key variables</ul>
+  <ul>Correlations</ul>
+  <ul>Outliers</ul>
+  <ul>Categorical breakdowns</ul></span>
+<br><br>
+
+<span style = "color:white;
+">📈 Step 4: Business Insights & Decisions
+</span>
+<br><br>
+<span style = "color:#9ACD32;
+">- Based on EDA, we'll highlight:
+<br><br></span>
+<span style = "color:#9ACD32;
+"><ul>Key patient or treatment patterns</ul>
+  <ul>Important KPIs</ul>
+  <ul>Potential areas for operational or policy intervention</ul></span>
+
+
+<br>
+</h1>
+'''
+
+display(HTML(html_code))
+from IPython.display import HTML, display
+
+html_code = '''
+<h1 style = "background-color: #556B2F;
+color:white; font-size: 30px;
+border-radius: 20px;
+padding: 16px;
+text-align: center;">
+
+ 
+<span style = "color: #9ACD32;">Importing the Required Libraries</span>
+</h1>
+'''
+
+display(HTML(html_code))
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+import warnings
+warnings.filterwarnings('ignore')
+from IPython.display import HTML, display
+
+html_code = '''
+<h1 style = "background-color: #556B2F;
+color:white; font-size: 30px;
+border-radius: 20px;
+padding: 16px;
+text-align: center;">
+
+ 
+<span style = "color: #9ACD32;">Loading the Dataset</span>
+</h1>
+'''
+
+display(HTML(html_code))
+df = pd.read_csv("healthcare_dataset.csv.csv")
+from IPython.display import HTML, display
+
+html_code = '''
+<h1 style = "background-color: #556B2F;
+color:white; font-size: 30px;
+border-radius: 20px;
+padding: 16px;
+text-align: center;">
+
+ 
+<span style = "color: #9ACD32;">Inspecting the Dataset</span>
+</h1>
+'''
+
+display(HTML(html_code))
+df_info = df.info()
+df_head = df.head()
+df.describe(include='all')
+from IPython.display import HTML, display
+
+html_code = '''
+<h1 style = "background-color: #556B2F; font-size: 14px;
+border-radius: 20px;
+padding: 12px;
+border: 4px solid darkgreen
+text-align: left;">
+
+<span style = "color:white;
+">✅ Step 1: Initial Inspection Summary
+<br><br></span> 
+<span style = "color:#9ACD32;
+">The dataset has 55,500 records and 15 columns. Here's what we found:</span>
+<br><br><br><br>
+
+<span style = "color:white;
+">📋 Column Summary & Data Types:
+<br><br></span> 
+
+<table style="width:100%; border-collapse: collapse; font-family: Arial, sans-serif; text-align: center;">
+  <thead style="background-color:#2e7d32; color:white;">
+    <tr>
+<th style="padding: 10px; vertical-align: middle;">Column</th>
+      <th style="padding: 10px; vertical-align: middle;">Type</th>
+      <th style="padding: 10px; vertical-align: middle;">Notes</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr style="background-color:#c8e6c9;">
+      <td style="padding: 10px; vertical-align: middle;">Name</td>
+      <td style="padding: 10px; vertical-align: middle;">Object</td>
+      <td style="padding: 10px; vertical-align: middle;">Contains patient names (49,992 unique)</td>
+    </tr>
+    <tr style="background-color:#a5d6a7;">
+      <td style="padding: 10px; vertical-align: middle;">Age</td>
+      <td style="padding: 10px; vertical-align: middle;">Integer</td>
+      <td style="padding: 10px; vertical-align: middle;">Numeric, ranges from 13 to 89</td>
+    </tr>
+    <tr style="background-color:#c8e6c9;">
+      <td style="padding: 10px; vertical-align: middle;">Gender</td>
+      <td style="padding: 10px; vertical-align: middle;">Object</td>
+      <td style="padding: 10px; vertical-align: middle;">Male/Female</td>
+    </tr>
+    <tr style="background-color:#a5d6a7;">
+      <td style="padding: 10px; vertical-align: middle;">Blood Type</td>
+      <td style="padding: 10px; vertical-align: middle;">Object</td>
+      <td style="padding: 10px; vertical-align: middle;">8 types (e.g., A-, O+, etc.)</td>
+    </tr>
+    <tr style="background-color:#c8e6c9;">
+      <td style="padding: 10px; vertical-align: middle;">Medical Condition</td>
+      <td style="padding: 10px; vertical-align: middle;">Object</td>
+      <td style="padding: 10px; vertical-align: middle;">6 unique values (e.g., Arthritis)</td>
+    </tr>
+    <tr style="background-color:#a5d6a7;">
+      <td style="padding: 10px; vertical-align: middle;">Date of Admission</td>
+      <td style="padding: 10px; vertical-align: middle;">Object</td>
+      <td style="padding: 10px; vertical-align: middle;">Needs to be converted to datetime</td>
+    </tr>
+    <tr style="background-color:#c8e6c9;">
+      <td style="padding: 10px; vertical-align: middle;">Doctor</td>
+      <td style="padding: 10px; vertical-align: middle;">Object</td>
+      <td style="padding: 10px; vertical-align: middle;">40k+ unique doctors</td>
+    </tr>
+    <tr style="background-color:#a5d6a7;">
+      <td style="padding: 10px; vertical-align: middle;">Hospital</td>
+      <td style="padding: 10px; vertical-align: middle;">Object</td>
+      <td style="padding: 10px; vertical-align: middle;">39k+ unique hospitals</td>
+    </tr>
+    <tr style="background-color:#c8e6c9;">
+      <td style="padding: 10px; vertical-align: middle;">Insurance Provider</td>
+      <td style="padding: 10px; vertical-align: middle;">Object</td>
+      <td style="padding: 10px; vertical-align: middle;">Only 5 unique providers</td>
+    </tr>
+    <tr style="background-color:#a5d6a7;">
+      <td style="padding: 10px; vertical-align: middle;">Billing Amount</td>
+      <td style="padding: 10px; vertical-align: middle;">Float</td>
+      <td style="padding: 10px; vertical-align: middle;">Monetary; note: <strong>contains negative values</strong> ⚠️</td>
+    </tr>
+    <tr style="background-color:#c8e6c9;">
+      <td style="padding: 10px; vertical-align: middle;">Room Number</td>
+      <td style="padding: 10px; vertical-align: middle;">Integer</td>
+      <td style="padding: 10px; vertical-align: middle;">Ranges from 101 to 500</td>
+    </tr>
+    <tr style="background-color:#a5d6a7;">
+      <td style="padding: 10px; vertical-align: middle;">Admission Type</td>
+      <td style="padding: 10px; vertical-align: middle;">Object</td>
+      <td style="padding: 10px; vertical-align: middle;">3 types: likely Emergency, Elective, Urgent</td>
+    </tr>
+    <tr style="background-color:#c8e6c9;">
+      <td style="padding: 10px; vertical-align: middle;">Discharge Date</td>
+      <td style="padding: 10px; vertical-align: middle;">Object</td>
+      <td style="padding: 10px; vertical-align: middle;">Needs datetime conversion</td>
+    </tr>
+    <tr style="background-color:#a5d6a7;">
+      <td style="padding: 10px; vertical-align: middle;">Medication</td>
+      <td style="padding: 10px; vertical-align: middle;">Object</td>
+      <td style="padding: 10px; vertical-align: middle;">5 unique medications</td>
+    </tr>
+    <tr style="background-color:#c8e6c9;">
+      <td style="padding: 10px; vertical-align: middle;">Test Results</td>
+      <td style="padding: 10px; vertical-align: middle;">Object</td>
+      <td style="padding: 10px; vertical-align: middle;">3 results: likely Normal, Abnormal, Inconclusive</td>
+    </tr>
+
+  </tbody>
+</table>
+
+<br><br><br><br>
+
+<span style = "color:white;
+">⚠️ Data Issues to Address in Cleaning
+<br><br></span>
+<span style = "color:#9ACD32;
+"><ul>Convert Date of Admission and Discharge Date to datetime.</ul>
+  <ul>Handle negative billing amounts.</ul>
+  <ul>Check if patient stays (Discharge - Admission) make sense.</ul>
+  <ul>Validate and possibly encode categorical values.</ul>
+  <ul>Consider whether Name, Doctor, Hospital need to be dropped or encoded (high cardinality).</ul></span>
+
+<br>
+</h1>
+'''
+
+display(HTML(html_code))
+from IPython.display import HTML, display
+
+html_code = '''
+<h1 style = "background-color: #556B2F;
+color:white; font-size: 30px;
+border-radius: 20px;
+padding: 16px;
+text-align: center;">
+
+ 
+<span style = "color: #9ACD32;">Data Cleaning</span>
+</h1>
+'''
+
+display(HTML(html_code))
+from IPython.display import HTML, display
+
+html_code = '''
+<h1 style = "background-color: #556B2F;
+color:white; font-size: 20px;
+border-radius: 20px;
+padding: 16px;
+text-align: left;">
+
+ 
+<span style = "color: #9ACD32;">Converting date columns to datetime</span>
+</h1>
+'''
+
+display(HTML(html_code))
+# Converting date columns to datetime
+
+df['Date of Admission'] = pd.to_datetime(df['Date of Admission'], dayfirst=True, errors='coerce')
+df['Discharge Date'] = pd.to_datetime(df['Discharge Date'], dayfirst=True, errors='coerce')
+from IPython.display import HTML, display
+
+html_code = '''
+<h1 style = "background-color: #556B2F;
+color:white; font-size: 20px;
+border-radius: 20px;
+padding: 16px;
+text-align: left;">
+
+ 
+<span style = "color: #9ACD32;">Checking for negative billing amounts
+</span>
+</h1>
+'''
+
+display(HTML(html_code))
+negative_billing = df[df["Billing Amount"]<0]
+from IPython.display import HTML, display
+
+html_code = '''
+<h1 style = "background-color: #556B2F;
+color:white; font-size: 20px;
+border-radius: 20px;
+padding: 16px;
+text-align: left;">
+
+ 
+<span style = "color: #9ACD32;">Calculating Length of Stay and adding it as a new column
+</span>
+</h1>
+'''
+
+display(HTML(html_code))
+df["Length of Stay"] = (df["Discharge Date"] - df["Date of Admission"]).dt.days
+from IPython.display import HTML, display
+
+html_code = '''
+<h1 style = "background-color: #556B2F;
+color:white; font-size: 20px;
+border-radius: 20px;
+padding: 16px;
+text-align: left;">
+
+ 
+<span style = "color: #9ACD32;">Sanity check: removing rows with negative billing or negative stay durations
+</span>
+</h1>
+'''
+
+display(HTML(html_code))
+df_cleaned = df[(df["Billing Amount"] >= 0) & (df["Length of Stay"] >= 0)]
+from IPython.display import HTML, display
+
+html_code = '''
+<h1 style = "background-color: #556B2F;
+color:white; font-size: 20px;
+border-radius: 20px;
+padding: 16px;
+text-align: left;">
+
+ 
+<span style = "color: #9ACD32;">Final data types check
+</span>
+</h1>
+'''
+
+display(HTML(html_code))
+df_cleaned_info = df_cleaned.info()
+from IPython.display import HTML, display
+
+html_code = '''
+<h1 style = "background-color: #556B2F;
+color:white; font-size: 20px;
+border-radius: 20px;
+padding: 16px;
+text-align: left;">
+
+ 
+<span style = "color: #9ACD32;">Checking how many rows were dropped
+</span>
+</h1>
+'''
+
+display(HTML(html_code))
+rows_dropped = df.shape[0] - df_cleaned.shape[0]
+rows_dropped, df_cleaned_info
+from IPython.display import HTML, display
+
+html_code = '''
+<h1 style = "background-color: #556B2F; font-size: 14px;
+border-radius: 20px;
+padding: 12px;
+border: 4px solid darkgreen
+text-align: left;">
+
+<span style = "color:white;
+">✅ Step 2: Data Cleaning Summary
+<br><br></span> 
+<span style = "color:#9ACD32;
+">Here's what we have done:</span>
+<br><br>
+
+<span style = "color:white;
+">🔧 Fixes Applied
+<br><br></span>
+<span style = "color:#9ACD32;
+"><ul>✅ Converted: Date of Admission and Discharge Date → datetime. </ul>
+  <ul>✅ Calculated: Length of Stay = Discharge Date − Date of Admission.</ul>
+  <ul>✅ Removed: 108 rows with either negative billing or negative stay durations. </ul>
+  </span>
+<br><br>
+<span style = "color:white;
+">📊 Cleaned Dataset Overview
+<br><br></span>
+<span style = "color:#9ACD32;
+"><ul>✅ Final Rows: 55,392 </ul>
+  <ul>✅ Columns: 16 (including Length of Stay)</ul>
+  <ul>✅ All columns now have proper data types </ul>
+  </span>
+
+<br>
+</h1>
+'''
+
+display(HTML(html_code))
+from IPython.display import HTML, display
+
+html_code = '''
+<h1 style = "background-color: #556B2F; font-size: 14px;
+border-radius: 20px;
+padding: 12px;
+border: 4px solid darkgreen
+text-align: left;">
+
+<span style = "color:white;
+">🧪 Next Step: EDA (Step 3)
+<br><br></span> 
+<span style = "color:#9ACD32;
+">We’ll now:</span>
+<br><br>
+
+<span style = "color:#9ACD32;
+"><ul>Analyze distributions (age, stay duration, billing) </ul>
+  <ul>Explore relationships (e.g., billing vs stay)</ul>
+  <ul>Visualize categorical breakdowns (e.g., gender, admission type, condition)
+
+</ul>
+  </span>
+<br>
+</h1>
+'''
+
+display(HTML(html_code))
+from IPython.display import HTML, display
+
+html_code = '''
+<h1 style = "background-color: #556B2F;
+color:white; font-size: 30px;
+border-radius: 20px;
+padding: 16px;
+text-align: center;">
+
+ 
+<span style = "color: #9ACD32;">Data Visualization</span>
+</h1>
+'''
+
+display(HTML(html_code))
+from IPython.display import HTML, display
+
+html_code = '''
+<h1 style = "background-color: #556B2F;
+color:white; font-size: 20px;
+border-radius: 20px;
+padding: 16px;
+text-align: left;">
+
+ 
+<span style = "color: #9ACD32;">Setting the Theme
+</span>
+</h1>
+'''
+
+display(HTML(html_code))
+sns.set(style="whitegrid")
+plt.rcParams["figure.figsize"] = (10, 6)
+from IPython.display import HTML, display
+
+html_code = '''
+<h1 style = "background-color: #556B2F;
+color:white; font-size: 20px;
+border-radius: 20px;
+padding: 16px;
+text-align: left;">
+
+ 
+<span style = "color: #9ACD32;">Distribution of Age
+</span>
+</h1>
+'''
+
+display(HTML(html_code))
+plt.figure()
+sns.histplot(df_cleaned["Age"], bins=30, kde=True, color='skyblue')
+plt.title("Age Distribution")
+plt.xlabel("Age")
+plt.ylabel("Frequency")
+plt.show()
+from IPython.display import HTML, display
+
+html_code = '''
+<h1 style = "background-color: #556B2F;
+color:white; font-size: 20px;
+border-radius: 20px;
+padding: 16px;
+text-align: left;">
+
+ 
+<span style = "color: #9ACD32;">Distribution of Billing Amount
+</span>
+</h1>
+'''
+
+display(HTML(html_code))
+plt.figure()
+sns.histplot(df_cleaned["Billing Amount"], bins=30, kde=True, color="salmon")
+plt.title("Billing Amount Distribution")
+plt.xlabel("Billing Amount")
+plt.ylabel("Frequency")
+plt.show()
+from IPython.display import HTML, display
+
+html_code = '''
+<h1 style = "background-color: #556B2F;
+color:white; font-size: 20px;
+border-radius: 20px;
+padding: 16px;
+text-align: left;">
+
+ 
+<span style = "color: #9ACD32;">Distribution of Length of Stay
+</span>
+</h1>
+'''
+
+display(HTML(html_code))
+plt.figure()
+sns.histplot(df_cleaned["Length of Stay"], bins=30, kde=True, color="seagreen")
+plt.title("Length of Stay Distribution")
+plt.xlabel("Days")
+plt.ylabel("Frequency")
+plt.show()
+from IPython.display import HTML, display
+
+html_code = '''
+<h1 style = "background-color: #556B2F;
+color:white; font-size: 20px;
+border-radius: 20px;
+padding: 16px;
+text-align: left;">
+
+ 
+<span style = "color: #9ACD32;">Gender Count
+</span>
+</h1>
+'''
+
+display(HTML(html_code))
+plt.figure()
+sns.countplot(x="Gender", data=df_cleaned, palette="Set2")
+plt.title("Gender Distribution")
+plt.ylabel("Count")
+plt.show()
+from IPython.display import HTML, display
+
+html_code = '''
+<h1 style = "background-color: #556B2F;
+color:white; font-size: 20px;
+border-radius: 20px;
+padding: 16px;
+text-align: left;">
+
+ 
+<span style = "color: #9ACD32;">Admission Type vs Billing Amount (Boxplot)
+
+</span>
+</h1>
+'''
+
+display(HTML(html_code))
+plt.figure()
+sns.boxplot(x="Admission Type", y="Billing Amount", data = df_cleaned, palette = "Set3")
+plt.title("Billing Amount by Admission Type")
+plt.xlabel("Billing Amount")
+plt.ylabel("Admission Type")
+plt.show()
+from IPython.display import HTML, display
+
+html_code = '''
+<h1 style = "background-color: #556B2F;
+color:white; font-size: 20px;
+border-radius: 20px;
+padding: 16px;
+text-align: left;">
+
+ 
+<span style = "color: #9ACD32;">Test Results Count
+
+</span>
+</h1>
+'''
+
+display(HTML(html_code))
+plt.figure()
+sns.countplot(y="Test Results", data=df_cleaned, palette="coolwarm")
+plt.title("Test Results Frequency")
+plt.xlabel("Count")
+plt.ylabel("Test Result")
+plt.show()
+from IPython.display import HTML, display
+
+html_code = '''
+<h1 style = "background-color: #556B2F;
+color:white; font-size: 20px;
+border-radius: 20px;
+padding: 16px;
+text-align: left;">
+
+ 
+<span style = "color: #9ACD32;">Medical Condition Frequency
+
+
+</span>
+</h1>
+'''
+
+display(HTML(html_code))
+plt.figure()
+top_conditions = df_cleaned["Medical Condition"].value_counts().nlargest(10)
+sns.barplot(x=top_conditions.values, y=top_conditions.index, palette="viridis")
+plt.title("Top 10 Medical Conditions")
+plt.xlabel("Number of Patients")
+plt.ylabel("Medical Condition")
+plt.show()
+from IPython.display import HTML, display
+
+html_code = '''
+<h1 style = "background-color: #556B2F;
+color:white; font-size: 20px;
+border-radius: 20px;
+padding: 16px;
+text-align: left;">
+
+ 
+<span style = "color: #9ACD32;">Correlation Heatmap for Numerical Columns
+
+
+
+</span>
+</h1>
+'''
+
+display(HTML(html_code))
+plt.figure()
+numerics = df_cleaned[["Age", "Billing Amount", "Length of Stay"]]
+sns.heatmap(numerics.corr(), annot=True, cmap="coolwarm", linewidth=0.5)
+plt.title("Correlation Heatmap")
+plt.show()
+from IPython.display import HTML, display
+
+html_code = '''
+<h1 style = "background-color: #556B2F; font-size: 14px;
+border-radius: 20px;
+padding: 12px;
+border: 4px solid darkgreen
+text-align: left;">
+
+<span style = "color:white;
+">📊 EDA Summary & Visual Insights
+</span><br><br>
+<span style = "color:#9ACD32;
+">- The key findings from the visualizations are:<br><br>
+</span>
+<span style = "color:#FFFDD0;
+"><ul>1. Age Distribution</ul>
+<span style = "color:#9ACD32;
+"><ul>Most patients are between 35 to 70 years old.</ul>  
+  <ul>Slight skew towards older age groups → focus on geriatric care.</ul></span>
+<br><br>
+
+<span style = "color:#FFFDD0;
+"><ul>2. Billing Amount Distribution</ul>
+<span style = "color:#9ACD32;
+"><ul>Centered around $25,000, ranging up to $52,000+ </ul>  
+  <ul>Some long-tail bills → may suggest cost control reviews needed. </ul></span>
+<br><br>
+
+<span style = "color:#FFFDD0;
+"><ul>3. Length of Stay</ul>
+<span style = "color:#9ACD32;
+"><ul>Most stays are under 10 days, but some extend to ~30 days. </ul>  
+  <ul>Extended stays should be audited for possible readmission reduction or case management. </ul></span>
+<br><br>
+
+<span style = "color:#FFFDD0;
+"><ul>4. Gender Distribution </ul>
+<span style = "color:#9ACD32;
+"><ul>Fairly balanced: ~50/50 Male vs Female. </ul>  
+  <ul>Suggests even resource allocation across genders. </ul></span>
+<br><br>
+
+<span style = "color:#FFFDD0;
+"><ul>5. Billing Amount by Admission Type </ul>
+<span style = "color:#9ACD32;
+"><ul>Emergency admissions have a higher variance and cost. </ul>  
+  <ul>Elective admissions are more predictable and cost-efficient.</ul>
+  <ul>Insight: Focus on preventative care to reduce emergency cases.</ul></span>
+<br><br>
+
+<span style = "color:#FFFDD0;
+"><ul>6. Test Results Frequency </ul>
+<span style = "color:#9ACD32;
+"><ul>High frequency of abnormal results. </ul>  
+  <ul>Suggests a population with chronic or severe conditions → long-term care planning essential.</ul></span>
+<br><br>
+
+<span style = "color:#FFFDD0;
+"><ul>7. Medical Condition Breakdown </ul>
+<span style = "color:#9ACD32;
+"><ul>Top 3: Arthritis, Hypertension, Diabetes. </ul>  
+  <ul>These are lifestyle and chronic conditions → suggests potential for wellness initiatives and early intervention programs.</ul></span>
+<br><br>
+
+<span style = "color:#FFFDD0;
+"><ul>8. Correlation Heatmap </ul>
+<span style = "color:#9ACD32;
+"><ul>Moderate correlation between Length of Stay and Billing Amount. </ul>  
+  <ul>Age has low correlation with cost directly but may relate via condition severity.</ul></span>
+<br><br>
+
+</h1>
+'''
+
+display(HTML(html_code))
+from IPython.display import HTML, display
+
+html_code = '''
+<h1 style = "background-color: #556B2F;
+color:white; font-size: 30px;
+border-radius: 20px;
+padding: 16px;
+text-align: center;">
+
+ 
+<span style = "color: #9ACD32;">Business Recommendations</span>
+</h1>
+'''
+
+display(HTML(html_code))
+from IPython.display import HTML, display
+
+html_code = '''
+<div style="display: flex; justify-content: center; margin-top: 20px;">
+  <table style="border-collapse: collapse; width: 80%; font-family: Arial, sans-serif; text-align: center; box-shadow: 0 0 10px rgba(0,0,0,0.1);">
+    <thead>
+      <tr style="background-color: #2e7d32; color: white; text-align: center;">
+        <th style="padding: 12px; border: 1px solid #ccc; text-align: center;">Insight</th>
+        <th style="padding: 12px; border: 1px solid #ccc; text-align: center;">Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr style="background-color: #e8f5e9;">
+        <td style="padding: 12px; border: 1px solid #ccc; text-align: center;">High cost of emergency admissions</td>
+        <td style="padding: 12px; border: 1px solid #ccc; text-align: center;">Invest in preventative programs</td>
+      </tr>
+      <tr style="background-color: #c8e6c9;">
+        <td style="padding: 12px; border: 1px solid #ccc; text-align: center;">Long hospital stays</td>
+        <td style="padding: 12px; border: 1px solid #ccc; text-align: center;">Evaluate care pathways & post-acute plans</td>
+      </tr>
+      <tr style="background-color: #e8f5e9;">
+        <td style="padding: 12px; border: 1px solid #ccc; text-align: center;">Chronic diseases are top conditions</td>
+        <td style="padding: 12px; border: 1px solid #ccc; text-align: center;">Tailor care management programs</td>
+      </tr>
+      <tr style="background-color: #c8e6c9;">
+        <td style="padding: 12px; border: 1px solid #ccc; text-align: center;">Gender-balanced patients</td>
+        <td style="padding: 12px; border: 1px solid #ccc; text-align: center;">Services should be inclusive & balanced</td>
+      </tr>
+      <tr style="background-color: #e8f5e9;">
+        <td style="padding: 12px; border: 1px solid #ccc; text-align: center;">Wide billing variance</td>
+        <td style="padding: 12px; border: 1px solid #ccc; text-align: center;">Consider billing audits & DRG standardization</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+'''
+
+display(HTML(html_code))
